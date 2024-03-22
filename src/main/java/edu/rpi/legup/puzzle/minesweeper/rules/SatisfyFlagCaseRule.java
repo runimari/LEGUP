@@ -7,7 +7,6 @@ import edu.rpi.legup.model.rules.CaseRule;
 import edu.rpi.legup.model.tree.TreeTransition;
 import edu.rpi.legup.puzzle.minesweeper.MinesweeperBoard;
 import edu.rpi.legup.puzzle.minesweeper.MinesweeperCell;
-import edu.rpi.legup.puzzle.minesweeper.MinesweeperTileData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +20,21 @@ public class SatisfyFlagCaseRule extends CaseRule{
 
     @Override
     public CaseBoard getCaseBoard(Board board) {
-        return null;
+        MinesweeperBoard minesweeperBoard = (MinesweeperBoard) board.copy();
+        CaseBoard caseBoard = new CaseBoard(minesweeperBoard, this);
+        minesweeperBoard.setModifiable(false);
+        for (PuzzleElement data : minesweeperBoard.getPuzzleElements()) {
+            MinesweeperCell cell = (MinesweeperCell) data;
+            if (cell.getData().isUnset()) {
+                caseBoard.addPickableElement(data);
+            }
+        }
+        return caseBoard;
     }
 
     @Override
     public List<Board> getCases(Board board, PuzzleElement puzzleElement) {
+        ArrayList<Board> cases = new ArrayList<>();
         return null;
     }
 
