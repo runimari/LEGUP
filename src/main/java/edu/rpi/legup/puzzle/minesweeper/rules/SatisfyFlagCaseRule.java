@@ -35,6 +35,8 @@ public class SatisfyFlagCaseRule extends CaseRule{
     @Override
     public List<Board> getCases(Board board, PuzzleElement puzzleElement) {
         ArrayList<Board> cases = new ArrayList<>();
+
+        Board case1 = board.copy();
         return null;
     }
 
