@@ -34,9 +34,12 @@ public class SatisfyFlagCaseRule extends CaseRule{
 
     @Override
     public List<Board> getCases(Board board, PuzzleElement puzzleElement) {
-        ArrayList<Board> cases = new ArrayList<>();
+        ArrayList<Board> cases = new ArrayList<Board>();
 
-        Board case1 = board.copy();
+        MinesweeperBoard minesweeperBoard = (MinesweeperBoard) board.copy();
+        MinesweeperCell cell = (MinesweeperCell) minesweeperBoard.getPuzzleElement(puzzleElement);
+
+
         return null;
     }
 

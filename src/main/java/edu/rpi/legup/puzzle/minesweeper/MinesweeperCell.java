@@ -18,6 +18,10 @@ public class MinesweeperCell extends GridCell<MinesweeperTileData> {
         return super.data.type();
     }
 
+    public int getTileNumber() {
+        return super.data.data();
+    }
+
     @Override
     @Contract(pure = false)
     /**
