@@ -18,7 +18,7 @@ public class MinesweeperCell extends GridCell<MinesweeperTileData> {
         return super.data.type();
     }
 
-    public int getTileNumber() {
+    public @NotNull int getTileNumber() {
         return super.data.data();
     }
 
@@ -58,6 +58,10 @@ public class MinesweeperCell extends GridCell<MinesweeperTileData> {
                 this.data = MinesweeperTileData.empty();
             }
         }
+    }
+
+    public void setCellType(MinesweeperTileData type){
+        this.data = type;
     }
 
     @Override
