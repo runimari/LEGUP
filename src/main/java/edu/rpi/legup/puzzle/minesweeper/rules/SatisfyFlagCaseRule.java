@@ -41,12 +41,15 @@ public class SatisfyFlagCaseRule extends CaseRule{
         // get value of cell
         MinesweeperBoard minesweeperBoard = (MinesweeperBoard) board.copy();
         MinesweeperCell cell = (MinesweeperCell) minesweeperBoard.getPuzzleElement(puzzleElement);
-        int cellMaxBlack = cell.getTileNumber();
-        if (cellMaxBlack <= 0 || cellMaxBlack > 8) { // cell is not valid cell
+        int cellMaxBombs = cell.getTileNumber();
+        if ( !(cell.getTileType() = MinesweeperTileType.FLAG) ) { // cell is not a flag
+            return null;
+        }
+        if (cellMaxBombs <= 0 || cellMaxBombs > 8) { // cell is not valid cell
             return null;
         }
 
-        // find number of black & unset squares
+        // find number of bomb & unset squares
         int cellNumBomb = 0;
         int cellNumUnset = 0;
         ArrayList<MinesweeperCell> unsetCells = new ArrayList<MinesweeperCell>();
@@ -60,14 +63,14 @@ public class SatisfyFlagCaseRule extends CaseRule{
                 unsetCells.add(adjCell);
             }
         }
-        // no cases if no empty or if too many black already
-        if (cellNumBomb >= cellMaxBlack || cellNumUnset == 0) {
+        // no cases if no empty or if too many bombs already
+        if (cellNumBomb >= cellMaxBombs || cellNumUnset == 0) {
             return cases;
         }
 
         // generate all cases as boolean expressions
         ArrayList<boolean[]> combinations;
-        combinations = MinesweeperUtilities.getCombinations(cellMaxBlack - cellNumBomb, cellNumUnset);
+        combinations = MinesweeperUtilities.getCombinations(cellMaxBombs - cellNumBomb, cellNumUnset);
 
         for (int i=0; i < combinations.size(); i++) {
             Board case_ = board.copy();
