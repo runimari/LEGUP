@@ -3,11 +3,12 @@ package edu.rpi.legup.puzzle.minesweeper.rules;
 import edu.rpi.legup.model.gameboard.Board;
 import edu.rpi.legup.model.gameboard.PuzzleElement;
 import edu.rpi.legup.model.rules.ContradictionRule;
-import edu.rpi.legup.puzzle.nurikabe.NurikabeBoard;
-import edu.rpi.legup.puzzle.nurikabe.NurikabeCell;
-import edu.rpi.legup.puzzle.nurikabe.NurikabeType;
-import edu.rpi.legup.puzzle.nurikabe.NurikabeUtilities;
-import edu.rpi.legup.utility.DisjointSets;
+import edu.rpi.legup.puzzle.minesweeper.MinesweeperBoard;
+import edu.rpi.legup.puzzle.minesweeper.MinesweeperCell;
+import edu.rpi.legup.puzzle.minesweeper.MinesweeperTileType;
+import edu.rpi.legup.puzzle.minesweeper.MinesweeperTileData;
+import edu.rpi.legup.puzzle.minesweeper.MinesweeperUtilities;
+import java.util.ArrayList;
 
 import java.util.Set;
 
@@ -23,10 +24,27 @@ public class LessBombsThanFlagContradictionRule extends ContradictionRule {
 
     @Override
     public String checkContradictionAt(Board board, PuzzleElement puzzleElement) {
+        MinesweeperBoard minesweeperBoard = (MinesweeperBoard) board;
+        MinesweeperCell cell = (MinesweeperCell) minesweeperBoard.getPuzzleElement(puzzleElement);
 
-        return null;
+        int cellNum = cell.getTileNumber();
+        if (cellNum <= 0 || cellNum >= 10) {
+            return super.getNoContradictionMessage();
+        }
+
+        ArrayList<MinesweeperCell> adjCells = MinesweeperUtilities.getAdjacentCells(minesweeperBoard, cell);
+        int numBombs = 0;
+        for (MinesweeperCell adjCell : adjCells) {
+            if (adjCell.getTileType() == MinesweeperTileType.BOMB) {
+                numBombs++;
+            }
+        }
+        if (numBombs < cellNum) {
+            return null;
+        }
+
+        return super.getNoContradictionMessage();
     }
-
-
 }
+
 
