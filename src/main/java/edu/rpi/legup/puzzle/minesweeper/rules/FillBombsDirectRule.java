@@ -6,7 +6,7 @@ import edu.rpi.legup.model.rules.DirectRule;
 import edu.rpi.legup.puzzle.minesweeper.MinesweeperBoard;
 import edu.rpi.legup.puzzle.minesweeper.MinesweeperCell;
 
-public class FillBombsDirectRule extends DirectRule{
+abstract public class FillBombsDirectRule extends DirectRule{
     public FillBombsDirectRule() {
         super(
                 "MINE-BASC-0001",
@@ -15,7 +15,6 @@ public class FillBombsDirectRule extends DirectRule{
                 "");
     }
 
-    @Override
     public String checkRuleRawAt(Board board, PuzzleElement puzzleElement) {
         MinesweeperBoard minesweeperBoard = (MinesweeperBoard) board;
         MinesweeperCell cell = (MinesweeperCell) minesweeperBoard.getPuzzleElement(puzzleElement);
